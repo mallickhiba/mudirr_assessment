@@ -173,25 +173,43 @@
 //   );
 // }
 // pages/index.js
-import { Box, Flex, Text, Button, Grid, GridItem, Progress } from '@chakra-ui/react';
-import { AiFillProject } from 'react-icons/ai';
-import { useState, useEffect } from 'react';
+import {
+  Box,
+  Flex,
+  Text,
+  Button,
+  Grid,
+  GridItem,
+  Progress,
+} from "@chakra-ui/react";
+import { AiFillProject } from "react-icons/ai";
+import { useState, useEffect } from "react";
 
 export default function Dashboard() {
-  const [projects, setProjects] = useState([]);
+  type Project = {
+    _id: string;
+    name: string;
+    status: string;
+    milestone: string;
+    progress: number;
+  };
+
+  const [projects, setProjects] = useState<Project[]>([]);
 
   // Fetch projects from MongoDB API
   useEffect(() => {
-    fetch('/api/projects')
-      .then(res => res.json())
-      .then(data => setProjects(data.projects));
+    fetch("/api/projects")
+      .then((res) => res.json())
+      .then((data) => setProjects(data.projects));
   }, []);
 
   return (
     <Flex>
       {/* Sidebar */}
       <Box w="20%" p="4" bg="gray.200">
-        <Text fontSize="2xl" mb="4">Mudir</Text>
+        <Text fontSize="2xl" mb="4">
+          Mudir
+        </Text>
         <Box mb="4">
           <Text>Dashboard</Text>
           <Text>Project History</Text>
@@ -212,7 +230,7 @@ export default function Dashboard() {
 
         {/* Project Grid */}
         <Grid templateColumns="repeat(3, 1fr)" gap={6} mt="6">
-          {projects.map(project => (
+          {projects.map((project) => (
             <GridItem key={project._id} bg="gray.100" p="4" borderRadius="md">
               <Flex justify="space-between">
                 <Text>{project.name}</Text>

@@ -6,15 +6,21 @@
 // }
 
 // pages/_app.js
-import { ChakraProvider } from '@chakra-ui/react';
-import '../styles/globals.scss';  // Import your global SCSS styles
-
-import type { AppProps } from 'next/app';
+// pages/_app.tsx
+import { ChakraProvider, Box } from "@chakra-ui/react";
+import Sidebar from "../components/Sidebar";
+import "../styles/globals.scss"; // Include global styles
+import type { AppProps } from "next/app";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ChakraProvider>
-      <Component {...pageProps} />
+      <Box display="flex">
+        <Sidebar />
+        <Box flex="1" ml={{ base: "0", md: "20%" }} p="4">
+          <Component {...pageProps} />
+        </Box>
+      </Box>
     </ChakraProvider>
   );
 }
